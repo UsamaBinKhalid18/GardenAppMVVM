@@ -11,5 +11,6 @@ data class Plant(
     val description: String,
     val wateringInterval: Int,
     val growZoneNumber: Int,
-    val imageUrl: String
+    val imageUrl: String,
+    var favorite:Boolean=false
 )

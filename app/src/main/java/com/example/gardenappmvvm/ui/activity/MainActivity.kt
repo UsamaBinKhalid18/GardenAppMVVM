@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = when (position) {
+                1->"Favorite Plants"
                 else -> {
                     "All Plants"
                 }

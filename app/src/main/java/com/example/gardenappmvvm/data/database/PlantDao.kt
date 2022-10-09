@@ -9,7 +9,7 @@ import androidx.room.Query
 @Dao
 interface PlantDao {
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPlant(plantEntity: Plant)
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -20,4 +20,7 @@ interface PlantDao {
 
     @Query("Select * from plants_table")
     fun getAllPlants(): LiveData<List<Plant>>
+
+    @Query("Select * from plants_table where favorite=1")
+    fun getFavoritePlants():LiveData<List<Plant>>
 }

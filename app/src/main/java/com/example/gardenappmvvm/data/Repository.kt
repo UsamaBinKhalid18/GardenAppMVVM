@@ -30,4 +30,8 @@ class Repository(val database: PlantsDatabase) {
             database.getPlantDao().insertAllPlants(plantList)
         }
     }
+
+    fun getFavorites(): LiveData<List<Plant>> {
+        return database.getPlantDao().getFavoritePlants()
+    }
 }

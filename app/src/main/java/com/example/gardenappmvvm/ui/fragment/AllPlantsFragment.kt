@@ -10,9 +10,8 @@ import com.example.gardenappmvvm.adapter.PlantsRVAdapter
 import com.example.gardenappmvvm.databinding.FragmentAllPlantsBinding
 import com.example.gardenappmvvm.viewmodel.MainViewModel
 
-class AllPlantsFragment(val viewModel: MainViewModel) : Fragment() {
+class AllPlantsFragment(private val viewModel: MainViewModel) : Fragment() {
     private lateinit var binding: FragmentAllPlantsBinding
-    private lateinit var adapter: PlantsRVAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -20,12 +19,13 @@ class AllPlantsFragment(val viewModel: MainViewModel) : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_all_plants, container, false)
         binding = FragmentAllPlantsBinding.bind(view)
-        adapter = PlantsRVAdapter()
+        val adapter = PlantsRVAdapter(viewModel)
         binding.recyclerView.adapter = adapter
 
         viewModel.plantList.observe(viewLifecycleOwner) {
-            adapter.submitList(it)
+            adapter.submitList(it.sortedBy { plant -> plant.name })
         }
         return view
     }
+
 }

@@ -27,6 +27,15 @@
         android:layout_gravity="center_vertical"
         android:layout_marginStart="155dp"
         android:textSize="20sp"
+        android:layout_marginEnd="55dp"
         android:textColor="@color/white" />
-
+    <ImageButton
+        android:id="@+id/button_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_star"
+        android:backgroundTint="#0000"
+        android:layout_gravity="center_vertical|end"
+        android:importantForAccessibility="no"
+        />
 </androidx.cardview.widget.CardView>
