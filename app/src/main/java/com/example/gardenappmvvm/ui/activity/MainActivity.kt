@@ -7,16 +7,20 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.gardenappmvvm.R
 import com.example.gardenappmvvm.adapter.TabsAdapter
-import com.example.gardenappmvvm.data.Repository
-import com.example.gardenappmvvm.data.database.PlantsDatabase
 import com.example.gardenappmvvm.databinding.ActivityMainBinding
 import com.example.gardenappmvvm.viewmodel.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.closestKodein
+import org.kodein.di.generic.instance
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : AppCompatActivity(),KodeinAware {
+    override val kodein by closestKodein()
+    private val factory:MainViewModel.MainViewModelFactory by instance()
     private lateinit var viewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,9 +28,7 @@ class MainActivity : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        val database = PlantsDatabase.getInstance(applicationContext)
-        val repository = Repository(database)
-        val factory = MainViewModel.MainViewModelFactory(repository)
+
         viewModel = ViewModelProvider(this, factory).get(MainViewModel::class.java)
         binding.viewPager.adapter = TabsAdapter(this, viewModel)
 
